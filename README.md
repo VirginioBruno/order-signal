@@ -43,28 +43,45 @@ order-signal/
 │  ├─ roadmap.md
 │  └─ adr/
 ├─ .gitignore
+├─ .env
+├─ docker-compose.yml
 ├─ order-signal.sln
 └─ README.md
 ```
 
 ## Current Status
 - ✅ Repo scaffold created
-- 🟡 Implementing MVP (see [docs/roadmap.md](./docs/roadmap.md))
+- 🚧 Implementing MVP (see [docs/roadmap.md](./docs/roadmap.md))
 - ⏭️ Next: add MassTransit + Outbox, publish events from API, basic consumer
 
-➡️ Project board: [Order Signal showcase](https://github.com/<user>/order-signal/projects/<id>)
+➡️ Project board: [Order Signal showcase](https://github.com/users/VirginioBruno/projects/4)
 
 ## Quickstart (WIP)
 For now, run the projects locally:
 
 ```bash
+# Dependencies
+docker-compose up -d
+
 # API
 dotnet run --project src/OrderSignal.Api/OrderSignal.Api.csproj
 
 # Worker
 dotnet run --project src/OrderSignal.Worker/OrderSignal.Worker.csproj
 
-# Docker Compose (Postgres + RabbitMQ) will be added soon.
+```
+
+- RabbitMQ UI → [http://localhost:15672](http://localhost:15672) (user: `guest`, pass: `guest`)  
+- Postgres → `localhost:5432` (db/user/password: `orders`)  
+
+- Connection string used by API/Worker:
+
+```json
+{
+    "ConnectionStrings": {
+        "OrdersDb": "Host=postgres;Port=5432;Database=orders;Username=orders;Password=orders"
+    }
+}
 ```
 
 ## Architecture (high level)
@@ -95,7 +112,7 @@ flowchart LR
 
 ## Roadmap
 
-- [ ] Setup Docker Compose (Postgres + RabbitMQ) — [#3](https://github.com/VirginioBruno/order-signal/issues/3)
+- [x] Setup Docker Compose (Postgres + RabbitMQ) — [#3](https://github.com/VirginioBruno/order-signal/issues/3)
 - [ ] Implement API routes: create/update orders — [#2](https://github.com/VirginioBruno/order-signal/issues/2), [#6](https://github.com/VirginioBruno/order-signal/issues/6)
 - [ ] Add MassTransit with Outbox pattern — [#4](https://github.com/VirginioBruno/order-signal/issues/4)
 - [ ] Worker consumes events and logs — [#5](https://github.com/VirginioBruno/order-signal/issues/5)
